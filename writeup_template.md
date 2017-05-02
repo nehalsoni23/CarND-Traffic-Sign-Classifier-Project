@@ -1,8 +1,8 @@
 #**Traffic Sign Recognition** 
 
-##Writeup Template
+## Writeup Template
 
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
 ---
 
@@ -22,18 +22,19 @@ The goals / steps of this project are the following:
 [image1]: writeup_images/training-data.JPG "Visualization"
 [image2]: writeup_images/grayscale_conversion.JPG "Grayscaling"
 [image3]: writeup_images/internet_images.JPG "Internet Images"
+[image4]: writeup_images/CNNvsNN.JPG "Regular Neural Network vs ConvNet"
 
 ## Rubric Points
-###Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
+### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
 
 ---
-###Writeup / README
+### Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
 You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
-###Data Set Summary & Exploration
+### Data Set Summary & Exploration
 
 ####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
@@ -55,7 +56,7 @@ With the help of sklearn.model_selection module, I have splitted the training se
 1. Training set is 27839
 2. Validation set is 6960
 
-####2. Include an exploratory visualization of the dataset.
+#### 2. Include an exploratory visualization of the dataset.
 
 I have used matplotlib and random packages to visualize the data in notebook
 
@@ -64,9 +65,9 @@ With the use of figure method in matplotlib.pyplot module I created one frame to
 ![alt text][image1]
 
 
-###Design and Test a Model Architecture
+### Design and Test a Model Architecture
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
+#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
 
 In our case of predicting signs in images color won't matter. So I am converting the data into grayscale by deviding the matrix by three and then summing the three channels in a marix with choosing the axis 3. The output training set after converting it into grayscale it will have following dimensions: 
 (27839, 32, 32, 1) 
@@ -74,7 +75,7 @@ The example of color image to grayscale image conversion is shown below:
 
 ![alt text][image2]
 
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 I have used LeNet model architecture for training my model which consists of the following layers:
 
@@ -101,7 +102,7 @@ i.e After first convolution layer with (5 x 5 x 1) filter size, height and width
 out_height = (32 - 5 + 1)/1 = 28	out_width = (32 - 5 + 1)/1 = 28
 
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 We are using Mini-batch technique which enables us to train data in chunks. Mini-batch is computationally inefficient as we can't caluculate the loss simultaneously. But it can be very useful if computer lacks a memory to store a entire dataset.
 
@@ -118,29 +119,52 @@ For each epochs following operations takes place:
 
 Above process is repeated for every epochs.
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
-My final model results were:
+The LeNet architecture is simple and small (in terms of memory footprint), making it perfect for training our model. It can even run on the CPU with good configuration (Of course it will take so much time compare to GPU). 
+
+My final model results are:
 * training set accuracy of 0.990
 * validation set accuracy of 0.969
 * test set accuracy of 0.884
 
+My test accuracy is bit low as I have not added additional data for data augmentation. I believe if adding more complex data on training set would help me increase the accuracy.
+
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
+
+I started training model with LeNet only as I am still exploring the other well accepted architecture like GoogLeNet, AlexNet etc.
+
 * What were some problems with the initial architecture?
 * How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+
 * Which parameters were tuned? How were they adjusted and why?
+
+Initially I kept learning rate as 0.0001 as smaller learning rate can help improving accuracy. But it didn't worked  well. Then I adjusted it as 0.001 which is quite accepted default setting for learning rate as per my learning. And it worked better than the previous setting.
+
 * What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+
+Regular Neural Network would not scale well for images as an input. i.e. We have an image of size (28x28x3) so a single fully connected neuron in first hidden layer would need (28*28*3) = 2352 weights. For more bigger images it would the size would lead to unmanagable state. Convolution Neural Network is a best fit when inputs are images because unlike a regular Neural Network, the layers of a ConvNet have neurons arranged in 3 dimensions: width, height, depth. 
+
+As we can see in below image, the neurons in a layer will only be connected to a small region of the layer before it, instead of all of the neurons in a fully-connected manner.
+
+![alt text][image4]
+
+By http://cs231n.github.io/convolutional-networks/ (Stanford CS class)
 
 If a well known architecture was chosen:
 * What architecture was chosen?
+LeNet architecture is best fit for this application.
+
 * Why did you believe it would be relevant to the traffic sign application?
+Since traffic sign classifier is mainly about processing images, ConvNet would be best suitable to process large amount of data and LeNet is based on Convolutional Neural Network.
+
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+My validation accuracy is 0.968 and training accuracy is 0.990 which is good. Although this can be improved more with the help of adding data augmentation and preprocessing of an image.
 
-###Test a Model on New Images
+### Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 Here are eight German traffic signs that I found on the web:
 
@@ -148,7 +172,7 @@ Here are eight German traffic signs that I found on the web:
 
 The first image might be difficult to classify because ...
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
@@ -163,7 +187,7 @@ Here are the results of the prediction:
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
 
@@ -181,6 +205,6 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 For the second image ... 
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
 
