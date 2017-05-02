@@ -23,6 +23,12 @@ The goals / steps of this project are the following:
 [image2]: writeup_images/grayscale_conversion.JPG "Grayscaling"
 [image3]: writeup_images/internet_images.JPG "Internet Images"
 [image4]: writeup_images/CNNvsNN.JPG "Regular Neural Network vs ConvNet"
+[image5]: Internet_images/"14-Stop.jpg" "STOP Sign"
+[image6]: Internet_images/"25-Road work.jpg" "Road Work"
+[image7]: Internet_images/"2-Speed limit (50kmh).jpg" "Speed limit (50kmh)"
+[image8]: Internet_images/"2-Speed limit (50kmh) (2).jpg" "Speed limit (50kmh)"
+[image9]: Internet_images/"1-Speed limit (30kmh).jpg" "Speed limit (30kmh)"
+
 
 ## Rubric Points
 ### Here I will consider the [rubric points](https://review.udacity.com/#!/rubrics/481/view) individually and describe how I addressed each point in my implementation.  
@@ -131,15 +137,15 @@ My final model results are:
 My test accuracy is bit low as I have not added additional data for data augmentation. I believe if adding more complex data on training set would help me increase the accuracy.
 
 If an iterative approach was chosen:
-### What was the first architecture that was tried and why was it chosen?
+#### What was the first architecture that was tried and why was it chosen?
 
 I started training model with LeNet only as I am still exploring the other well accepted architecture like GoogLeNet, AlexNet etc.
 
-### Which parameters were tuned? How were they adjusted and why?
+#### Which parameters were tuned? How were they adjusted and why?
 
 Initially I kept learning rate as 0.0001 as smaller learning rate can help improving accuracy. But it didn't worked  well. Then I adjusted it as 0.001 which is quite accepted default setting for learning rate as per my learning. And it worked better than the previous setting.
 
-### What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+#### What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
 Regular Neural Network would not scale well for images as an input. i.e. We have an image of size (28x28x3) so a single fully connected neuron in first hidden layer would need (28*28*3) = 2352 weights. For more bigger images it would the size would lead to unmanagable state. Convolution Neural Network is a best fit when inputs are images because unlike a regular Neural Network, the layers of a ConvNet have neurons arranged in 3 dimensions: width, height, depth. 
 
@@ -150,13 +156,13 @@ As we can see in below image, the neurons in a layer will only be connected to a
 By http://cs231n.github.io/convolutional-networks/ (Stanford CS class)
 
 If a well known architecture was chosen:
-### What architecture was chosen?
+#### What architecture was chosen?
 LeNet architecture is best fit for this application.
 
-### Why did you believe it would be relevant to the traffic sign application?
+#### Why did you believe it would be relevant to the traffic sign application?
 Since traffic sign classifier is mainly about processing images, ConvNet would be best suitable to process large amount of data and LeNet is based on Convolutional Neural Network.
 
-### How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+#### How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
 My validation accuracy is 0.968 and training accuracy is 0.990 which is good. Although this can be improved more with the help of adding data augmentation and preprocessing of an image.
 
 ### Test a Model on New Images
@@ -167,7 +173,7 @@ Here are eight German traffic signs that I found on the web:
 
 ![alt text][image3]
 
-The sixth and seventh image is quite at some angle(not much) but since training data already have these minor angled images model will be able to predict it right.
+The sixth and seventh image is quite at some angle(not much) but since training data already have images with minor angle, model should be able to predict it.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -186,24 +192,84 @@ The predicted output: [14, 25, 1, 2, 1, 34, 3, 18]
 | Speed limit (60kmh)   | Speed limit (60kmh)      						|
 | General caution       | General caution      							|
 
-The model was able to correctly guess 7 of the 8 traffic signs, which gives an accuracy of 87.5%. It couldn't predict the first 50kmh speed sign because I believe the the image is at distance making the digit very close to each other. The classifier assumed the digit '5' as '3' because of vague image resolution.
+The model was able to correctly guess 7 of the 8 traffic signs, which gives an accuracy of 87.5%. It couldn't predict the first 50kmh speed sign because I believe the the image is at some distance, making the digit very close to each other and add ambiguity for digit '5'. The classifier assumed the digit '5' as '3' because of vague image resolution.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
+For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were [14, 13, 39, 25, 34] (indexes = ClassId in CSV file)
 
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+![alt text][image5]
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| 1.00         			| Stop sign   									| 
+| 5.31574584e-15     	| Yield 										|
+| 1.31443344e-25	    | Keep left										|
+| 3.33202251e-29  		| Road work					 					|
+| 1.56263420e-30		| Turn left ahead      							|
 
+---
 
-For the second image ... 
+For the second image, top five soft max probabilities were: [25, 39, 10,  1, 11]
+
+![alt text][image6]
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 0.6         			| Road work   									| 
+| 0.29    				| Keep left 									|
+| 0.04	    			| No passing for vehicles over 3.5 metric tons	|
+| 0.02 					| Speed limit (30km/h)					 		|
+| 0.001					| Right-of-way at the next intersection      	|
+
+---
+
+For the third image, top five soft max probabilities were: [ 1,  2,  5, 21, 31]
+
+![alt text][image7]
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 0.7         			| Speed limit (30km/h)   						| 
+| 0.27    				| Speed limit (50km/h) 							|
+| 3.39563225e-19	    | Speed limit (80km/h)							|
+| 2.60027457e-20 		| Double curve							 		|
+| 8.30955028e-21		| Wild animals crossing					      	|
+
+For this image like I explained before it is misinterpreting digit '5' as '3' which lead to incorrect prediction. The second highest prediction is 50km/h which is answer.
+
+---
+
+For the forth image, top five soft max probabilities were: [ 2,  5,  1, 16,  8]
+
+![alt text][image8]
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 0.62         			| Speed limit (50km/h)   						| 
+| 0.37    				| Speed limit (80km/h) 							|
+| 0.00038			    | Speed limit (30km/h)							|
+| 5.97629390e-15 		| Vehicles over 3.5 metric tons prohibited		|
+| 1.35115056e-17		| Speed limit (120km/h)					      	|
+
+---
+
+For the fifth image, top five soft max probabilities were: [ 1,  2,  5, 39,  0]
+
+![alt text][image9]
+
+| Probability         	|     Prediction	        					| 
+|:---------------------:|:---------------------------------------------:| 
+| 1.00         			| Speed limit (30km/h)   						| 
+| 3.27433912e-21    	| Speed limit (50km/h) 							|
+| 9.16801786e-30		| Speed limit (80km/h)							|
+| 5.60478021e-33 		| Keep left										|
+| 0.00000000e+00		| Speed limit (20km/h)					      	|
+
+Surprisingly the model can identify this image 100% same as stop sign image.
+
+It is noticeable from 3rd, 4th, 5th results that for model there is very small bifurcation between digits '3', '5' and '8'. And we need to take care of this small difference at the time of training the model with proper image resolution and more of such data.
+---
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
