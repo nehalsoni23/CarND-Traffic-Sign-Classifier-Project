@@ -24,10 +24,10 @@ The goals / steps of this project are the following:
 [image3]: writeup_images/internet_images.JPG "Internet Images"
 [image4]: writeup_images/CNNvsNN.JPG "Regular Neural Network vs ConvNet"
 [image5]: Internet_images/14-Stop.jpg "STOP Sign"
-[image6]: Internet_images/'25-Road work.jpg' "Road Work"
-[image7]: Internet_images/2-Speed limit (50kmh).jpg "Speed limit (50kmh)"
-[image8]: Internet_images/2-Speed limit (50kmh) (2).jpg "Speed limit (50kmh)"
-[image9]: Internet_images/1-Speed limit (30kmh).jpg "Speed limit (30kmh)"
+[image6]: "Internet_images/25-Road work.jpg" "Road Work"
+[image7]: "Internet_images/2-Speed limit (50kmh).jpg" "Speed limit (50kmh)"
+[image8]: "Internet_images/2-Speed limit (50kmh) (2).jpg" "Speed limit (50kmh)"
+[image9]: "Internet_images/1-Speed limit (30kmh).jpg" "Speed limit (30kmh)"
 
 
 ## Rubric Points
@@ -208,6 +208,7 @@ For the first image, the model is relatively sure that this is a stop sign (prob
 | 3.33202251e-29  		| Road work					 					|
 | 1.56263420e-30		| Turn left ahead      							|
 
+It can indetify the stop image 100% which is good. 
 ---
 
 For the second image, top five soft max probabilities were: [25, 39, 10,  1, 11]
@@ -266,9 +267,9 @@ For the fifth image, top five soft max probabilities were: [ 1,  2,  5, 39,  0]
 | 5.60478021e-33 		| Keep left										|
 | 0.00000000e+00		| Speed limit (20km/h)					      	|
 
-Surprisingly the model can identify this image 100% same as stop sign image.
+The model can identify this image 100% same as stop sign image.
 
-It is noticeable from 3rd, 4th, 5th results that for model there is very small bifurcation between digits '3', '5' and '8'. And we need to take care of this small difference at the time of training the model with proper image resolution and more of such data.
+#### It is noticeable from 3rd, 4th, 5th results that for model there is very small bifurcation between digits '3', '5' and '8'. And we need to take care of this small difference at the time of training the model with proper image resolution and more of such data.
 ---
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
