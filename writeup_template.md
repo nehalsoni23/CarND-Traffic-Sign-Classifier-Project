@@ -1,4 +1,4 @@
-#**Traffic Sign Recognition** 
+# **Traffic Sign Recognition** 
 
 ## Writeup Template
 
@@ -32,11 +32,11 @@ The goals / steps of this project are the following:
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/udacity/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](https://github.com/nehalsoni23/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
 
 ### Data Set Summary & Exploration
 
-####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
 As the data is available in serialized format file, Python's pickle module is being used to unpickle(deserialize) it.
 
@@ -44,10 +44,10 @@ As the data is available in serialized format file, Python's pickle module is be
 - `'labels'` is a 1D array containing the label/class id of the traffic sign. The file `signnames.csv` contains id -> name mappings for each id.
 - The pickled data contains the images of size 32 x 32 pixels
 
-* The size of training set is 34799
-* The size of test set is 12630
-* The shape of a traffic sign image is (34799, 32, 32, 3)
-* The number of unique classes/labels in the data set is 43
+* The size of training set is `34799`
+* The size of test set is `12630`
+* The shape of a traffic sign image is `(34799, 32, 32, 3)`
+* The number of unique classes/labels in the data set is `43`
 
 I have used sklearn module in order to shuffle and split the data.
 np.random.seed(80) is used to generate the  same sequence of random numbers.
@@ -89,9 +89,9 @@ I have used LeNet model architecture for training my model which consists of the
 | RELU					|         										|
 | Max pooling	      	| 2x2 stride, 2x2 filter, Outputs 5x5x16 		|
 | Flatter				| 5x5x16 = 400        							|
-| Fully connected, RELU	| Input = 400. Output = 120	(xW + b)        	|
-| Fully connected, RELU	| Input = 120. Output = 84	(xW + b)        	|
-| Fully connected, RELU	| Input = 84. Output = 43	(xW + b)        	|
+| Fully connected, RELU	| Input = 400, Output = 120	(xW + b)        	|
+| Fully connected, RELU	| Input = 120, Output = 84	(xW + b)        	|
+| Fully connected, RELU	| Input = 84, Output = 43	(xW + b)        	|
 
 
 New height and width for next layers are calculated using following formulas:
@@ -131,18 +131,15 @@ My final model results are:
 My test accuracy is bit low as I have not added additional data for data augmentation. I believe if adding more complex data on training set would help me increase the accuracy.
 
 If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
+### What was the first architecture that was tried and why was it chosen?
 
 I started training model with LeNet only as I am still exploring the other well accepted architecture like GoogLeNet, AlexNet etc.
 
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-
-* Which parameters were tuned? How were they adjusted and why?
+### Which parameters were tuned? How were they adjusted and why?
 
 Initially I kept learning rate as 0.0001 as smaller learning rate can help improving accuracy. But it didn't worked  well. Then I adjusted it as 0.001 which is quite accepted default setting for learning rate as per my learning. And it worked better than the previous setting.
 
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+### What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
 
 Regular Neural Network would not scale well for images as an input. i.e. We have an image of size (28x28x3) so a single fully connected neuron in first hidden layer would need (28*28*3) = 2352 weights. For more bigger images it would the size would lead to unmanagable state. Convolution Neural Network is a best fit when inputs are images because unlike a regular Neural Network, the layers of a ConvNet have neurons arranged in 3 dimensions: width, height, depth. 
 
@@ -153,13 +150,13 @@ As we can see in below image, the neurons in a layer will only be connected to a
 By http://cs231n.github.io/convolutional-networks/ (Stanford CS class)
 
 If a well known architecture was chosen:
-* What architecture was chosen?
+### What architecture was chosen?
 LeNet architecture is best fit for this application.
 
-* Why did you believe it would be relevant to the traffic sign application?
+### Why did you believe it would be relevant to the traffic sign application?
 Since traffic sign classifier is mainly about processing images, ConvNet would be best suitable to process large amount of data and LeNet is based on Convolutional Neural Network.
 
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
+### How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
 My validation accuracy is 0.968 and training accuracy is 0.990 which is good. Although this can be improved more with the help of adding data augmentation and preprocessing of an image.
 
 ### Test a Model on New Images
@@ -170,22 +167,26 @@ Here are eight German traffic signs that I found on the web:
 
 ![alt text][image3]
 
-The first image might be difficult to classify because ...
+The sixth and seventh image is quite at some angle(not much) but since training data already have these minor angled images model will be able to predict it right.
 
 #### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
+My lables are:        [14, 25, 2, 2, 1, 34, 3, 18]
+The predicted output: [14, 25, 1, 2, 1, 34, 3, 18]
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
 | Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Road Work    			| Road Work 									|
+| Speed limit (50kmh)	| Speed limit (30kmh)						 	|
+| Speed limit (50kmh)	| Speed limit (50kmh)					 		|
+| Speed limit (30kmh)   | Speed limit (30kmh)      						|
+| Turn left ahead       | Turn left ahead      							|
+| Speed limit (60kmh)   | Speed limit (60kmh)      						|
+| General caution       | General caution      							|
 
-
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 7 of the 8 traffic signs, which gives an accuracy of 87.5%. It couldn't predict the first 50kmh speed sign because I believe the the image is at distance making the digit very close to each other. The classifier assumed the digit '5' as '3' because of vague image resolution.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -206,5 +207,3 @@ For the second image ...
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 #### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-
-
