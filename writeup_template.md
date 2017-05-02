@@ -192,7 +192,7 @@ The predicted output: [14, 25, 1, 2, 1, 34, 3, 18]
 | Speed limit (60kmh)   | Speed limit (60kmh)      						|
 | General caution       | General caution      							|
 
-The model was able to correctly guess 7 of the 8 traffic signs, which gives an accuracy of 87.5%. It couldn't predict the first 50kmh speed sign because I believe the the image is at some distance, making the digit very close to each other and add ambiguity for digit '5'. The classifier assumed the digit '5' as '3' because of vague image resolution.
+The model was able to correctly guess 7 of the 8 traffic signs, which gives an accuracy of 87.5%. It couldn't predict the third image of  50kmh speed sign because after grayscale conversion image resolution is bit distorted and digits seems very close to each other which add ambiguity for digit '5'. The classifier is assuming the digit '5' as '3'.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
