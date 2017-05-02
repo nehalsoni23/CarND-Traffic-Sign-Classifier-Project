@@ -23,11 +23,11 @@ The goals / steps of this project are the following:
 [image2]: writeup_images/grayscale_conversion.JPG "Grayscaling"
 [image3]: writeup_images/internet_images.JPG "Internet Images"
 [image4]: writeup_images/CNNvsNN.JPG "Regular Neural Network vs ConvNet"
-[image5]: Internet_images/"14-Stop.jpg" "STOP Sign"
-[image6]: Internet_images/"25-Road work.jpg" "Road Work"
-[image7]: Internet_images/"2-Speed limit (50kmh).jpg" "Speed limit (50kmh)"
-[image8]: Internet_images/"2-Speed limit (50kmh) (2).jpg" "Speed limit (50kmh)"
-[image9]: Internet_images/"1-Speed limit (30kmh).jpg" "Speed limit (30kmh)"
+[image5]: Internet_images/14-Stop.jpg "STOP Sign"
+[image6]: Internet_images/'25-Road work.jpg' "Road Work"
+[image7]: Internet_images/2-Speed limit (50kmh).jpg "Speed limit (50kmh)"
+[image8]: Internet_images/2-Speed limit (50kmh) (2).jpg "Speed limit (50kmh)"
+[image9]: Internet_images/1-Speed limit (30kmh).jpg "Speed limit (30kmh)"
 
 
 ## Rubric Points
